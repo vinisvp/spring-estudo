@@ -53,10 +53,16 @@ public class ContactService {
         contactRepository.save(aux);
     }
 
+    // Aqui é a função que deletar um contato.
+    // Ele vai receber o id do contato a ser deletado
     public void deleteContact(long id){
+        // existById indentifica se esse contato existe pelo o id.
+        // Se existe, true, senão, false
         if(contactRepository.existsById(id)){
+            // deleteById remove o contato que possui esse id
             contactRepository.deleteById(id);
         } else {
+            // Se não existe, joga uma exceção
             throw new EntityNotFoundException();
         }
     }

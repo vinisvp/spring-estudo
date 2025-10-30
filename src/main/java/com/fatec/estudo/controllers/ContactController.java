@@ -77,9 +77,15 @@ public class ContactController {
         return ResponseEntity.noContent().build();
     }
 
+    // Aqui estamos indicando que essa função é um endpoint de DELETE
+    // que vai possuir /{id} no final: http://localhost:8080/contacts/{id}
     @DeleteMapping("/{id}")
+    // Usamos o @PathVariable para pegar o id
     public ResponseEntity<Void> deleteContactById(@PathVariable long id){
+        // Usamos deleteContact do service para remover o contato
         contactService.deleteContact(id);
+        // noContent() retorna o Status Code 204, indicando que a requisição
+        // deu certo, mas não tem nada a retornar
         return ResponseEntity.noContent().build();
     }
 }
