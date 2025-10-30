@@ -40,9 +40,16 @@ public class ContactService {
         return contactRepository.save(contact);
     }
 
+    // Aqui é a função que vai editar um contato.
+    // Ele receber uma Instacia Contact, e vai utilizar seu valores para
+    // atualizar o que está na tabela, e o id do contact a ser editado
     public void updateContact(Contact contact, long id){
+        // Usamos o getReferenceById(), para pegar o contato do BD
         Contact aux = contactRepository.getReferenceById(id);
         
+        // aqui, estamos mudando os valores do item presente (aux) no BD
+        // pelos valores do item com as atualizações (contact) utilizando
+        // os setters e getters
         aux.setName(contact.getName());
         aux.setSurname(contact.getSurname());
         aux.setPhone(contact.getPhone());
@@ -50,6 +57,7 @@ public class ContactService {
         aux.setNickname(contact.getNickname());
         aux.setNote(contact.getNote());
 
+        // Usamos o save() para atualizar o registro no BD
         contactRepository.save(aux);
     }
 

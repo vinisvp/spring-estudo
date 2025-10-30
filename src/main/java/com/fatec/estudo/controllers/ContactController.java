@@ -71,9 +71,14 @@ public class ContactController {
         return ResponseEntity.created(location).body(savedContact);
     }
 
+    // Aqui estamos indicando que essa função é um endpoint de PUT
+    // que vai possuir /{id} no final: http://localhost:8080/contacts/{id}
     @PutMapping("/{id}")
+    // Pegamos o id com @PathVariable, e o @RequestBody para pegar o corpo da requisição
     public ResponseEntity<Void> updateContact(@PathVariable long id, @RequestBody Contact contact){
+        // Executamos a função do serviço, passando o contact e o id
         contactService.updateContact(contact, id);
+        // Usamos noContent(), por não ter nada a retornar
         return ResponseEntity.noContent().build();
     }
 
