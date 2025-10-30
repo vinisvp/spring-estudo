@@ -33,7 +33,10 @@ public class ContactService {
                 .orElseThrow(() -> new EntityNotFoundException());
     }
 
+    // Aqui é a função que vai salvar um contato
+    // Ele vai receber um objeto Contact
     public Contact saveContact(Contact contact){
+        // save() salva um contato, através de uma entidade Contact
         return contactRepository.save(contact);
     }
 

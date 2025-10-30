@@ -47,16 +47,27 @@ public class ContactController {
         return ResponseEntity.ok(contactService.getContactById(id));
     }
 
+    // Aqui estamos indicando que essa função será um endpoint de POST
     @PostMapping
+    // @RequestBody faz com que pegamos o corpo da requisição, que é um objeto Contact
     public ResponseEntity<Contact> saveContact(@RequestBody Contact contact){
+        // Pegamos o contato retornado ao salvar
         Contact savedContact = contactService.saveContact(contact);
 
-        URI location = ServletUriComponentsBuilder
+        // Aqui criamos o endpoint onde pode ser encontrado o novo Contact
+        URI location = ServletUriComponentsBuilder //Isso criar uma URI
+                        // Pega o contexto atual, ou seja http://localhost:8080/contacts
                         .fromCurrentRequest()
+                        // adiciona /{id} no final, ou seja: http://localhost:8080/contacts/{id}
                         .path("/{id}")
+                        // substitui o {id} pelo o id do contato salvo
                         .buildAndExpand(savedContact.getId())
+                        // Converte tudo em uma URI
                         .toUri();
 
+        // created() retorna o Status Code 201, indicando que o item foi criado
+        // ele precisa do local onde pode ser encontrado o item (location)
+        // e o item que foi salvo (body)
         return ResponseEntity.created(location).body(savedContact);
     }
 
