@@ -10,12 +10,16 @@ import com.fatec.estudo.repositories.ContactRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
+// Aqui dizemos para o spring que essa classe é um serviço 
 @Service
 public class ContactService {
+    // Aqui injetamos o Repositorio automaticamente na classe
     @Autowired
     private ContactRepository contactRepository;
 
+    // Aqui é a função para consultar todos os contatos no BD
     public List<Contact> getContacts() {
+        // A função findAll do JPA consulta todas as linhas da tabela
         return contactRepository.findAll();
     }
 

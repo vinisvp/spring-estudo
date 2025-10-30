@@ -19,13 +19,21 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+// Aqui estamos dizendo que todos os endpoinst começaram com 'contacts', 
+// Ou seja: http://localhost:8080/contacts
 @RequestMapping("contacts")
 public class ContactController {
+    // Injetando o Serviço
     @Autowired
     private ContactService contactService;
 
+    // Aqui estamos dizendo que essa função será um endpoint de GET
     @GetMapping
+    // ResponseEntity é necessário para dar respostas mais completas 
+    // Precisamos especificar o que vai ser retornado no Endpoint
     public ResponseEntity<List<Contact>> getContacts() {
+        // ok() é o Status Code 200, dizendo que a função deu certo. 
+        // dentro dela, colocamos o que vamos retornar, os contatos
         return ResponseEntity.ok(contactService.getContacts());
     }
 
