@@ -23,8 +23,13 @@ public class ContactService {
         return contactRepository.findAll();
     }
 
+    // Aqui é a função para consultar por id.
+    // Ele vai rebecer um número, para consultar o contato com esse numero de id 
     public Contact getContactById(long id){
+        // findById permite a gente encontrar uma linha na tabela pelo id
         return contactRepository.findById(id)
+                // Essa função necessita do orElseThrow, uma função que joga
+                // uma exceção (erro) caso a linha com aquele id não seja encontrada
                 .orElseThrow(() -> new EntityNotFoundException());
     }
 

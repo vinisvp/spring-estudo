@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 // Aqui estamos dizendo que todos os endpoinst começaram com 'contacts', 
-// Ou seja: http://localhost:8080/contacts
+// ou seja: http://localhost:8080/contacts
 @RequestMapping("contacts")
 public class ContactController {
     // Injetando o Serviço
@@ -37,8 +37,13 @@ public class ContactController {
         return ResponseEntity.ok(contactService.getContacts());
     }
 
+    // Aqui estamos dizendo que essa função será GET, mas terá /{id} no final,
+    // ou seja http://localhost:8080/contacts/{id}. Esse {id} será substituido
     @GetMapping("/{id}")
+    // Aqui só sera retornado uma instancia de Contact
+    // @PathVariable vai pegar o valor que vai substituir {id}
     public ResponseEntity<Contact> getContactById(@PathVariable long id){
+        // Agora usamos ok, mas com a função de getById, e passamos o id
         return ResponseEntity.ok(contactService.getContactById(id));
     }
 
