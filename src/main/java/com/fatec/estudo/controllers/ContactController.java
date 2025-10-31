@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jakarta.validation.Valid;
+
 import com.fatec.estudo.dtos.ContactRequest;
 import com.fatec.estudo.dtos.ContactResponse;
 import com.fatec.estudo.services.ContactService;
@@ -51,7 +53,7 @@ public class ContactController {
     // Aqui estamos indicando que essa função será um endpoint de POST
     @PostMapping
     // @RequestBody faz com que pegamos o corpo da requisição, que é um objeto Contact
-    public ResponseEntity<ContactResponse> saveContact(@RequestBody ContactRequest contact){
+    public ResponseEntity<ContactResponse> saveContact(@Valid @RequestBody ContactRequest contact){
         // Pegamos o contato retornado ao salvar
         ContactResponse savedContact = contactService.saveContact(contact);
 
@@ -76,7 +78,7 @@ public class ContactController {
     // que vai possuir /{id} no final: http://localhost:8080/contacts/{id}
     @PutMapping("/{id}")
     // Pegamos o id com @PathVariable, e o @RequestBody para pegar o corpo da requisição
-    public ResponseEntity<Void> updateContact(@PathVariable long id, @RequestBody ContactRequest contact){
+    public ResponseEntity<Void> updateContact(@PathVariable long id, @Valid @RequestBody ContactRequest contact){
         // Executamos a função do serviço, passando o contact e o id
         contactService.updateContact(contact, id);
         // Usamos noContent(), por não ter nada a retornar

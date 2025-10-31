@@ -1,5 +1,6 @@
 package com.fatec.estudo.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,8 +23,10 @@ public class Contact {
     // Importante que seus tipos sejam objetos.
     // Podemos observar isso com a primeira letra
     // maiuscula de String e Integer.
+    @Column(nullable = false)
     private String name;
     private String surname;
+    @Column(nullable = false)
     private Integer phone;
     private String email;
     private String nickname;

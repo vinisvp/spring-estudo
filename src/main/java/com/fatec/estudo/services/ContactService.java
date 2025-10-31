@@ -37,7 +37,7 @@ public class ContactService {
                 .map(ContactMapper::toDto)
                 // Essa função necessita do orElseThrow, uma função que joga
                 // uma exceção (erro) caso a linha com aquele id não seja encontrada
-                .orElseThrow(() -> new EntityNotFoundException());
+                .orElseThrow(() -> new EntityNotFoundException("Contact not found!"));
     }
 
     // Aqui é a função que vai salvar um contato
@@ -80,7 +80,7 @@ public class ContactService {
             contactRepository.deleteById(id);
         } else {
             // Se não existe, joga uma exceção
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("Contact not found!");
         }
     }
 }
