@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
 
@@ -30,7 +32,11 @@ public class Contact {
     private Integer phone;
     private String email;
     private String nickname;
-    private String note;
+    private String note;    
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     
     // Método construtor
     public Contact() {}
@@ -89,5 +95,13 @@ public class Contact {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

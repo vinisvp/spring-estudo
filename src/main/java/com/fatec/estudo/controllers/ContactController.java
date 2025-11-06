@@ -14,8 +14,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.validation.Valid;
 
-import com.fatec.estudo.dtos.ContactRequest;
-import com.fatec.estudo.dtos.ContactResponse;
+import com.fatec.estudo.dtos.contact.ContactRequest;
+import com.fatec.estudo.dtos.contact.ContactResponse;
 import com.fatec.estudo.services.ContactService;
 
 import java.net.URI;

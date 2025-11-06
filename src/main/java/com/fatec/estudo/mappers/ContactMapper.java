@@ -1,7 +1,7 @@
 package com.fatec.estudo.mappers;
 
-import com.fatec.estudo.dtos.ContactRequest;
-import com.fatec.estudo.dtos.ContactResponse;
+import com.fatec.estudo.dtos.contact.ContactRequest;
+import com.fatec.estudo.dtos.contact.ContactResponse;
 import com.fatec.estudo.entities.Contact;
 
 public class ContactMapper {
@@ -26,7 +26,8 @@ public class ContactMapper {
             entity.getPhone(),
             entity.getEmail(),
             entity.getNickname(),
-            entity.getNote()
+            entity.getNote(),
+            entity.getCategory() != null ? CategoryMapper.toDto(entity.getCategory()) : null
         );
     }
 }

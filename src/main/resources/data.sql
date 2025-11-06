@@ -1,2 +1,4 @@
-INSERT INTO TBL_CONTACT (NAME, SURNAME, PHONE, EMAIL, NICKNAME, NOTE) VALUES
-('John', 'Doe', 123456789, 'john.doe@example.com', 'Zé', 'Gente Boa');
+INSERT INTO TBL_CATEGORY (NAME) VALUES ('Familia');
+
+INSERT INTO TBL_CONTACT (NAME, SURNAME, PHONE, EMAIL, NICKNAME, NOTE, CATEGORY_ID) VALUES
+('John', 'Doe', 123456789, 'john.doe@example.com', 'Zé', 'Gente Boa', 1);

@@ -1,4 +1,4 @@
-package com.fatec.estudo.dtos;
+package com.fatec.estudo.dtos.contact;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +13,8 @@ public record ContactRequest(
     Integer phone,
     String email,
     String nickname,
-    String note
+    String note,
+    Long categoryId
 ) {
 
 }

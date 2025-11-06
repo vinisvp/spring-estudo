@@ -1,4 +1,6 @@
-package com.fatec.estudo.dtos;
+package com.fatec.estudo.dtos.contact;
+
+import com.fatec.estudo.dtos.category.CategoryResponse;
 
 public record ContactResponse(
     Long id,
@@ -7,7 +9,8 @@ public record ContactResponse(
     Integer phone,
     String email,
     String nickname,
-    String note
+    String note,
+    CategoryResponse category
 ) {
 
 }

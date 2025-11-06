@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fatec.estudo.dtos.ContactRequest;
-import com.fatec.estudo.dtos.ContactResponse;
+import com.fatec.estudo.dtos.contact.ContactRequest;
+import com.fatec.estudo.dtos.contact.ContactResponse;
+import com.fatec.estudo.entities.Category;
 import com.fatec.estudo.entities.Contact;
 import com.fatec.estudo.mappers.ContactMapper;
+import com.fatec.estudo.repositories.CategoryRepository;
 import com.fatec.estudo.repositories.ContactRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -19,6 +21,9 @@ public class ContactService {
     // Aqui injetamos o Repositorio automaticamente na classe
     @Autowired
     private ContactRepository contactRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     // Aqui é a função para consultar todos os contatos no BD
     public List<ContactResponse> getContacts() {
@@ -44,6 +49,14 @@ public class ContactService {
     // Ele vai receber um objeto Contact
     public ContactResponse saveContact(ContactRequest contact){
         Contact entity = ContactMapper.toEntity(contact);
+
+        if(contact.categoryId() != null){
+            Category category = categoryRepository.findById(contact.categoryId())
+                                .orElseThrow(() -> new EntityNotFoundException("Category not found!"));
+
+            entity.setCategory(category);
+        }
+
         entity = contactRepository.save(entity);
         // save() salva um contato, através de uma entidade Contact
         return ContactMapper.toDto(entity);
@@ -65,6 +78,15 @@ public class ContactService {
         aux.setEmail(contact.email());
         aux.setNickname(contact.nickname());
         aux.setNote(contact.note());
+
+        if(contact.categoryId() != null){
+            Category category = categoryRepository.findById(contact.categoryId())
+                                .orElseThrow(() -> new EntityNotFoundException("Category not found!"));
+
+            aux.setCategory(category);
+        } else {
+            aux.setCategory(null);
+        }
 
         // Usamos o save() para atualizar o registro no BD
         contactRepository.save(aux);
