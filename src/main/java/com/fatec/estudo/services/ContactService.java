@@ -26,11 +26,19 @@ public class ContactService {
     private CategoryRepository categoryRepository;
 
     // Aqui é a função para consultar todos os contatos no BD
+    // Vamos retornar response para o cliente
     public List<ContactResponse> getContacts() {
         // A função findAll do JPA consulta todas as linhas da tabela
         return contactRepository.findAll()
+                                // isso converte a lista para um stream
+                                // que permite usar o map
                                 .stream()
+                                // map() vai realizar uma função com cada item
+                                // e criar uma nova coleção com os retornos
+                                // ou seja, vamos converter cada Contact para
+                                // Response, e criar uma nova lista com isso
                                 .map(ContactMapper::toDto)
+                                // E então, converte o stream de volta para uma lista
                                 .toList();
     }
 
@@ -39,6 +47,7 @@ public class ContactService {
     public ContactResponse getContactById(long id){
         // findById permite a gente encontrar uma linha na tabela pelo id
         return contactRepository.findById(id)
+                // Vai converto o Contact para Response
                 .map(ContactMapper::toDto)
                 // Essa função necessita do orElseThrow, uma função que joga
                 // uma exceção (erro) caso a linha com aquele id não seja encontrada
@@ -46,7 +55,8 @@ public class ContactService {
     }
 
     // Aqui é a função que vai salvar um contato
-    // Ele vai receber um objeto Contact
+    // Ele vai receber um objeto ContactRequest, que é o que
+    // o cliente manda para a API
     public ContactResponse saveContact(ContactRequest contact){
         Contact entity = ContactMapper.toEntity(contact);
 
@@ -71,7 +81,7 @@ public class ContactService {
         
         // aqui, estamos mudando os valores do item presente (aux) no BD
         // pelos valores do item com as atualizações (contact) utilizando
-        // os setters e getters
+        // os setters da entidade, e os campos do DTO, que é um record
         aux.setName(contact.name());
         aux.setSurname(contact.surname());
         aux.setPhone(contact.phone());
