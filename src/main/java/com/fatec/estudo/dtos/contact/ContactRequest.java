@@ -1,5 +1,7 @@
 package com.fatec.estudo.dtos.contact;
 
+import java.util.Set;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,7 +23,9 @@ public record ContactRequest(
     String nickname,
     String note,
     // Id da categoria desse contato
-    Long categoryId
+    Long categoryId,
+    // Ids das tags desse contato
+    Set<Long> tagIds
 ) {
 
 }

@@ -1,6 +1,9 @@
 package com.fatec.estudo.dtos.contact;
 
+import java.util.Set;
+
 import com.fatec.estudo.dtos.category.CategoryResponse;
+import com.fatec.estudo.dtos.tag.TagResponse;
 
 // Records são objetos apenas de leitura
 // Ou seja, não é possível mudar o valor dos atributos
@@ -14,7 +17,9 @@ public record ContactResponse(
     String nickname,
     String note,
     // Objeto da categoria desse contato
-    CategoryResponse category
+    CategoryResponse category,
+    // Lista dos objetos das tags desse contato
+    Set<TagResponse> tags
 ) {
 
 }

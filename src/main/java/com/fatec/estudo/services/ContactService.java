@@ -1,6 +1,8 @@
 package com.fatec.estudo.services;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +11,11 @@ import com.fatec.estudo.dtos.contact.ContactRequest;
 import com.fatec.estudo.dtos.contact.ContactResponse;
 import com.fatec.estudo.entities.Category;
 import com.fatec.estudo.entities.Contact;
+import com.fatec.estudo.entities.Tag;
 import com.fatec.estudo.mappers.ContactMapper;
 import com.fatec.estudo.repositories.CategoryRepository;
 import com.fatec.estudo.repositories.ContactRepository;
+import com.fatec.estudo.repositories.TagRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -24,6 +28,9 @@ public class ContactService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     // Aqui é a função para consultar todos os contatos no BD
     // Vamos retornar response para o cliente
@@ -71,6 +78,16 @@ public class ContactService {
             entity.setCategory(category);
         }
 
+        if (contact.tagIds() != null && !contact.tagIds().isEmpty()) {
+            Set<Tag> tags = new HashSet<>();
+            for (Long tagId : contact.tagIds()) {
+                Tag tag = tagRepository.findById(tagId)
+                    .orElseThrow(() -> new EntityNotFoundException("Tag not found: " + tagId));
+                tags.add(tag);
+            }
+            entity.setTags(tags);
+        }
+
         entity = contactRepository.save(entity);
         // save() salva um contato, através de uma entidade Contact
         return ContactMapper.toDto(entity);
@@ -101,6 +118,18 @@ public class ContactService {
         } else {
             // Caso não tenha id, o cliente pode estar querendo tirar o relacionamento
             aux.setCategory(null);
+        }
+
+        if (contact.tagIds() != null) {
+            Set<Tag> tags = new HashSet<>();
+            for (Long tagId : contact.tagIds()) {
+                Tag tag = tagRepository.findById(tagId)
+                    .orElseThrow(() -> new EntityNotFoundException("Tag not found: " + tagId));
+                tags.add(tag);
+            }
+            aux.setTags(tags);
+        } else {
+            aux.getTags().clear();
         }
 
         // Usamos o save() para atualizar o registro no BD

@@ -1,5 +1,7 @@
 package com.fatec.estudo.mappers;
 
+import java.util.stream.Collectors;
+
 import com.fatec.estudo.dtos.contact.ContactRequest;
 import com.fatec.estudo.dtos.contact.ContactResponse;
 import com.fatec.estudo.entities.Contact;
@@ -36,7 +38,10 @@ public class ContactMapper {
             entity.getNickname(),
             entity.getNote(),
             // Se tiver categoria, ela será convertida para DTO
-            entity.getCategory() != null ? CategoryMapper.toDto(entity.getCategory()) : null
+            entity.getCategory() != null ? CategoryMapper.toDto(entity.getCategory()) : null,
+            entity.getTags().stream()
+                .map(TagMapper::toDto)
+                .collect(Collectors.toSet())
         );
     }
 }
