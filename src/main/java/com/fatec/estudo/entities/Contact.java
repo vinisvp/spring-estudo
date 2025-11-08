@@ -48,10 +48,16 @@ public class Contact {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    // Aqui indica que vário contatos podem estar relacionados
+    // a várias tags
     @ManyToMany
+    // Customizar a tabela de junção
     @JoinTable(
+        // Nome da tabela
         name = "TBL_CONTACT_TAG",
+        // Coluna com o id do contato
         joinColumns = @JoinColumn(name = "contact_id"),
+        // Coluna com o id da tag
         inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags = new HashSet<>();

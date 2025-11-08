@@ -18,8 +18,11 @@ public class Tag {
     private Long id;
     private String name;
     
+    // Aqui indicamos que várias tags podem estar associadas
+    // a varios contatos
     @ManyToMany(mappedBy = "tags")
-    private Set<Contact> products = new HashSet<>();
+    // Usamos Set, que impede contatos repetidos
+    private Set<Contact> contacts = new HashSet<>();
 
     public Tag() {}
 
@@ -39,11 +42,11 @@ public class Tag {
         this.name = name;
     }
 
-    public Set<Contact> getProducts() {
-        return products;
+    public Set<Contact> getContacts() {
+        return contacts;
     }
 
-    public void setProducts(Set<Contact> products) {
-        this.products = products;
+    public void setContacts(Set<Contact> products) {
+        this.contacts = products;
     }
 }

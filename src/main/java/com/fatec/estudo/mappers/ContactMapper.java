@@ -39,8 +39,11 @@ public class ContactMapper {
             entity.getNote(),
             // Se tiver categoria, ela será convertida para DTO
             entity.getCategory() != null ? CategoryMapper.toDto(entity.getCategory()) : null,
+            // Transfomar o Set de tags em Stream
             entity.getTags().stream()
+                // Converter cada tag em Response
                 .map(TagMapper::toDto)
+                // Converter a Stream para Set de novo
                 .collect(Collectors.toSet())
         );
     }

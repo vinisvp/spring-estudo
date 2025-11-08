@@ -78,13 +78,20 @@ public class ContactService {
             entity.setCategory(category);
         }
 
+        // Se tiver tags para relacionar com esse contato
         if (contact.tagIds() != null && !contact.tagIds().isEmpty()) {
+            // Cria um set auxilizar
             Set<Tag> tags = new HashSet<>();
+            // Cada cada id de tag presente na requisição
             for (Long tagId : contact.tagIds()) {
+                // Tenta pegar a tag com aquele id
                 Tag tag = tagRepository.findById(tagId)
+                    // Se não, joga exceção
                     .orElseThrow(() -> new EntityNotFoundException("Tag not found: " + tagId));
+                // Adiciona para a set auxiliar
                 tags.add(tag);
             }
+            // Relaciona o set de tags na entidade
             entity.setTags(tags);
         }
 
@@ -129,6 +136,7 @@ public class ContactService {
             }
             aux.setTags(tags);
         } else {
+            // Se não tiver tags, limpa a lista
             aux.getTags().clear();
         }
 
