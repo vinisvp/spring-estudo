@@ -2,6 +2,9 @@ package com.fatec.estudo.dtos.contact;
 
 import com.fatec.estudo.dtos.category.CategoryResponse;
 
+// Records são objetos apenas de leitura
+// Ou seja, não é possível mudar o valor dos atributos
+// Só ler eles
 public record ContactResponse(
     Long id,
     String name,
