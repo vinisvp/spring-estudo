@@ -2,13 +2,20 @@ package com.fatec.estudo.controllers.exceptions;
 
 import java.time.Instant;
 
+// Corpo de resposta padrão dos erros
 public class StandardError {
+    // Data e hora em que o erro ocorreu
     private Instant timeStamp;
+    // Status Code do erro
     private Integer status;
+    // "Titulo" do erro
     private String error;
+    // Mensagem, ou seja, uma descrição do erro
     private String message;
+    // endpoint em que o erro ocorreu
     private String path;
     
+    // Getter e Setters
     public Instant getTimeStamp() {
         return timeStamp;
     }
