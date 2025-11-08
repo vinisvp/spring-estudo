@@ -13,6 +13,7 @@ public record ContactResponse(
     String email,
     String nickname,
     String note,
+    // Objeto da categoria desse contato
     CategoryResponse category
 ) {
 

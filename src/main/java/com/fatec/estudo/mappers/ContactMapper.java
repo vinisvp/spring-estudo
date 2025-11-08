@@ -35,6 +35,7 @@ public class ContactMapper {
             entity.getEmail(),
             entity.getNickname(),
             entity.getNote(),
+            // Se tiver categoria, ela será convertida para DTO
             entity.getCategory() != null ? CategoryMapper.toDto(entity.getCategory()) : null
         );
     }

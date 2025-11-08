@@ -20,6 +20,7 @@ public record ContactRequest(
     String email,
     String nickname,
     String note,
+    // Id da categoria desse contato
     Long categoryId
 ) {
 

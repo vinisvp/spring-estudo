@@ -34,7 +34,12 @@ public class Contact {
     private String nickname;
     private String note;    
 
+    // Aqui faz com que vários contatos possam
+    // estar relacionados a uma categoria
     @ManyToOne
+    // Aqui faz com que a coluna que vai carregar
+    // a chave estrangeira da categoria se chame
+    // category_id
     @JoinColumn(name = "category_id")
     private Category category;
     

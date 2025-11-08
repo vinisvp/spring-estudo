@@ -60,10 +60,14 @@ public class ContactService {
     public ContactResponse saveContact(ContactRequest contact){
         Contact entity = ContactMapper.toEntity(contact);
 
+        // Se o cliente estiver tentando relacionar uma categoria
         if(contact.categoryId() != null){
+            // Pegamos a categoria pela tabela no bd
             Category category = categoryRepository.findById(contact.categoryId())
+                                // Se não existir, joga exceção
                                 .orElseThrow(() -> new EntityNotFoundException("Category not found!"));
 
+            // Associação a categoria na entidade
             entity.setCategory(category);
         }
 
@@ -95,6 +99,7 @@ public class ContactService {
 
             aux.setCategory(category);
         } else {
+            // Caso não tenha id, o cliente pode estar querendo tirar o relacionamento
             aux.setCategory(null);
         }
 
